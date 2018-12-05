@@ -40,14 +40,14 @@ def home():
         )
     
 
-# 4. Define what to do when a user hits the /precipitation route
+
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     """Return a list of passenger data including the name, age, and sex of each passenger"""
-    # Query all passengers
+
     results = session.query(Measurement).all()
 
-    # Create a dictionary from the row data and append to a list of all_passengers
+
     all_measurement = []
     for measurement in results:
         measurement_dict = {}
@@ -62,12 +62,28 @@ def precipitation():
 def stations():
     results = session.query(Station.station).all()
 
-    # Convert list of tuples into normal list   
-
-    # np.ravel is a numpy function that turns a two dimensional matrix into a one dimensional array
     all_stations = list(np.ravel(results))
 
     return jsonify(all_stations)
 
+@app.route("/api/v1.0/tobs")
+def tobs():
+    """Return a list of passenger data including the name, age, and sex of each passenger"""
+    
+    results = session.query(Measurement).\
+        filter(Measurement.date > "2016-08-22").all()
+
+    
+    all_measurement = []
+    for measurement in results:
+        measurement_dict = {}
+        measurement_dict["Temp Obs"] = measurement.tobs
+        measurement_dict["Date"] = measurement.date
+        all_measurement.append(measurement_dict)
+
+    return jsonify(all_measurement)
+
+
 if __name__ == "__main__":
     app.run(debug=True, port = 5005)
+
