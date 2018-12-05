@@ -48,32 +48,15 @@ def precipitation():
     results = session.query(Measurement).all()
 
     # Create a dictionary from the row data and append to a list of all_passengers
-    all_precipitation = []
-    for precipitation in results:
-        precipitation_dict = {}
-        precipitation_dict["Date"] = Measurement.date
-        precipitation_dict["Precipitation"] = Measurement.prcp
-        all_precipitation.append(precipitation_dict)
+    all_dates = []
+    for dates in results:
+        dates_dict = {}
+        dates_dict["date"] = Measurement.date
+        dates_dict["Prcp"] = Measurement.prcp
+        all_dates.append(dates_dict)
 
-    return jsonify(all_precipitation)
+    return jsonify(all_dates)
 
-
-# @app.route("/api/v1.0/passengers")
-# def passengers():
-#     """Return a list of passenger data including the name, age, and sex of each passenger"""
-#     # Query all passengers
-#     results = session.query(Passenger).all()
-
-#     # Create a dictionary from the row data and append to a list of all_passengers
-#     all_passengers = []
-#     for passenger in results:
-#         passenger_dict = {}
-#         passenger_dict["name"] = passenger.name
-#         passenger_dict["age"] = passenger.age
-#         passenger_dict["sex"] = passenger.sex
-#         all_passengers.append(passenger_dict)
-
-#     return jsonify(all_passengers)
 
 @app.route("/api/v1.0/stations")
 def stations():
