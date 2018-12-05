@@ -48,21 +48,21 @@ def precipitation():
     results = session.query(Measurement).all()
 
     # Create a dictionary from the row data and append to a list of all_passengers
-    all_dates = []
-    for dates in results:
-        dates_dict = {}
-        dates_dict["date"] = Measurement.date
-        dates_dict["Prcp"] = Measurement.prcp
-        all_dates.append(dates_dict)
+    all_measurement = []
+    for measurement in results:
+        measurement_dict = {}
+        measurement_dict["Prcipitation"] = measurement.prcp
+        measurement_dict["Date"] = measurement.date
+        all_measurement.append(measurement_dict)
 
-    return jsonify(all_dates)
+    return jsonify(all_measurement)
 
 
 @app.route("/api/v1.0/stations")
 def stations():
     results = session.query(Station.station).all()
 
-    # Convert list of tuples into normal list
+    # Convert list of tuples into normal list   
 
     # np.ravel is a numpy function that turns a two dimensional matrix into a one dimensional array
     all_stations = list(np.ravel(results))
